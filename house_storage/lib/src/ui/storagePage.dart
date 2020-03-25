@@ -5,7 +5,7 @@ import 'package:house_storage/src/model/help/storage_help.dart';
 class StoragePage extends StatefulWidget {
   String _rotulo;
 
-  StorePage(String rotulo) {
+  StoragePage(String rotulo) {
     this._rotulo = rotulo;
   }
 
