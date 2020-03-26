@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:house_storage/src/ui/build/storage.dart';
 
-
 class Home extends StatefulWidget{
   @override
   _HomeState createState() => _HomeState();
@@ -13,7 +12,8 @@ class _HomeState extends State<Home>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("HouseStore",
+        title: Text(
+          "HouseStorage",
           style: TextStyle(
             fontSize: 20.0,
             color: Colors.white
@@ -29,20 +29,15 @@ class _HomeState extends State<Home>{
         
         children: <Widget>[
         
-        //--> COZINHA
-        new Storage().construiStore('Cozinha', context),
+        new Storage().opcaoStorage('Cozinha', context),
 
-        //---> LAVANDERIA
-        new Storage().construiStore('Lavanderia', context),
+        new Storage().opcaoStorage('Lavanderia', context),
 
-        //---> QUARTO
-        new Storage().construiStore('Quarto', context),
+        new Storage().opcaoStorage('Quarto', context),
         
-        //---> BANHEIRO
-        new Storage().construiStore('Banheiro', context)
+        new Storage().opcaoStorage('Banheiro', context)
         ],
       ),
     );
   }
-  
 }

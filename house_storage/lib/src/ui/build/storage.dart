@@ -6,7 +6,7 @@ import 'package:house_storage/src/ui/build/botaoParaStorages.dart';
 class Storage {
 
   // Rotulo determina qual Store vai ser produzido
-  Widget construiStore(String rotulo , BuildContext context){ 
+  Widget opcaoStorage(String nomeStorage , BuildContext context){ 
     
     //Layout dos diversos stores
     return Center(
@@ -27,7 +27,7 @@ class Storage {
 
                 child: Column(
                   children: <Widget>[
-                    Text( rotulo,
+                    Text( nomeStorage,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -38,7 +38,7 @@ class Storage {
                     // BOTÃO ADICIONAR -> PageStore de acordo com "rotulo"
                     Padding(
                       padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 3.0),
-                      child: new BotaoParaStore().construtorBotaoAdicionar(rotulo, context) //Botão que leva as page especificas dos stores
+                      child: new BotaoParaStorage().construtorBotaoParaEntrar(nomeStorage, context) //Botão que leva as page especificas dos stores
                     )
                   ],
                 )

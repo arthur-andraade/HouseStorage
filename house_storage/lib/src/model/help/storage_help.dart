@@ -59,21 +59,18 @@ class Storage_help {
     return listaDeItem;
   }
 
-  //  Salva novo item
   Future<int> salvandoNovoItem(Item item) async {
     print(item.constrouiMapItem());
     Database dbStorage = await db;
     return dbStorage.insert(item_tabelaNome, item.constrouiMapItem());
   }
 
-  //  Deletendo item
   Future<int> deletandoItem(Item item) async {
     Database dbStorage = await db;
     return await dbStorage.delete(item_tabelaNome,
         where: '$item_colunaId = ?', whereArgs: [item.id]);
   }
 
-  //  Dando update na quantidade
   Future<int> alterandoQuantidadeDeItem(Item item) async {
     Database dbStorage = await db;
     return dbStorage.update(
@@ -81,8 +78,7 @@ class Storage_help {
         where: '$item_colunaId = ?', whereArgs: [item.id]);
   }
 
-  //  Dando update no nome do item
-  Future<int> alterandoNomeDoIten(Item item) async{
+  Future<int> alterandoNomeDoItem(Item item) async{
     Database dbStorage = await db;
     return dbStorage.update(
         item_tabelaNome, {item_colunaNome: item.nome},

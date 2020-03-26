@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:house_storage/src/ui/storagePage.dart';
 // Botão no qual leva para os diversos stores do app
-class BotaoParaStore{
+class BotaoParaStorage{
 
-  Widget construtorBotaoAdicionar(String rotulo, BuildContext context){
+  Widget construtorBotaoParaEntrar(String storageSelecionado, BuildContext context){
     return Container(
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -17,13 +17,13 @@ class BotaoParaStore{
           color: Colors.white,
         ),
         onTap: (){
-          qualStore(context, rotulo);
+          entraNoStorage(context, storageSelecionado);
         }, 
       )
     );
   }
 
-  void qualStore(BuildContext context, String rotulo){
+  void entraNoStorage(BuildContext context, String rotulo){
 
     switch(rotulo){
       

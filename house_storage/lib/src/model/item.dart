@@ -7,7 +7,7 @@ final String item_colunaQuantidade = "item_quantidade";
 final String item_colunaStorage = "item_storage";
 
 class Item {
-  //Atributos
+  
   int id;
   String nome;
   int quantidade;
