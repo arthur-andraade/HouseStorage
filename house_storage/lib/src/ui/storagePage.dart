@@ -45,30 +45,40 @@ class _StorageState extends State<StoragePage> {
 
   @override
   Widget build(BuildContext context) {
- 
+
     return Scaffold(
       appBar: AppBar(
         title: Text('$_storageSelecionado'),
         backgroundColor: Colors.red,
         centerTitle: true,
       ),
+
       body: Column(
+        
         children: <Widget>[
         
           Container(
             padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
             child: Row(
               children: <Widget>[
-         
+
                 Expanded(
-                  child: TextField(
-                    controller: addNovoItem,
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.red),
-                        labelText: "Adicionar novo item"),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 5.0),
+                    child:Container(
+                      height: 70.0,
+                      padding: EdgeInsets.all(5.0),
+                      child:TextField(
+                        controller: addNovoItem,
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.red),
+                          labelText: "Adicionar novo item",
+                          border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
                   ),
                 ),
-
                 Container(
                   padding: EdgeInsets.all(5.0),
                   height: 70.0,
@@ -124,7 +134,8 @@ class _StorageState extends State<StoragePage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+                color: Colors.redAccent
               ),
               decoration: null,
             
@@ -154,7 +165,7 @@ class _StorageState extends State<StoragePage> {
             var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
           },
         ),
-
+        
         Container(
             padding: EdgeInsets.only(left: 2.5, right: 2.5),
             width: 50.0,
@@ -165,7 +176,8 @@ class _StorageState extends State<StoragePage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  color: Colors.redAccent,
                 ),
                 controller: _controllersQuantidade[index],
                 decoration: null,
