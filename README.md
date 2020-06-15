@@ -12,7 +12,7 @@
 <h3>:pushpin: Tecnologias utilizadas na aplicação</h3>
 <ul type ="none">
   <li>:arrow_right: Flutter e dart</li>
-  <li>:arrow_right: SQlite, este utlizado para armazenamento dos dados</li>
+  <li>:arrow_right: SQlite, este utlizado para armazenamento dos dados localmente</li>
 </ul>
 <br>
 
