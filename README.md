@@ -11,15 +11,20 @@
 
 <h3>:pushpin: Tecnologias utilizadas na aplicação</h3>
 <ul type ="none">
-  <li>:x: Flutter e dart</li>
-  <li>:x: SQlite, este utlizado para armazenamento dos dados</li>
+  <li>:arrow_right: Flutter e dart</li>
+  <li>:arrow_right: SQlite, este utlizado para armazenamento dos dados</li>
 </ul>
 <br>
 
 <h3>:pushpin: Funcionalidades</h3>
 <ul type ="none">
-  <li>:x: Adicionar produtos nos quatros storages</li>
-  <li>:x: Alterar a quantidade do produto em seu determinado storage</li>
-  <li>:x: Alterar o nome do produto em seu determinado storage</li>
-  <li>:x: Remover o produto do storage em qual está localizado</li>
+  <li>:arrow_right: Adicionar produtos nos quatros storages</li>
+  <li>:arrow_right: Alterar a quantidade do produto em seu determinado storage</li>
+  <li>:arrow_right: Alterar o nome do produto em seu determinado storage</li>
+  <li>:arrow_right: Remover o produto do storage em qual está localizado</li>
 </ul>
+
+<div align="center">
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/arthur-andraade/App_HouseStorage?style=social">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/arthur-andraade/App_HouseStorage">
+</div>
