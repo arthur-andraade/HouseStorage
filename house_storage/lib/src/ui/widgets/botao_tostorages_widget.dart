@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:house_storage/src/ui/storagePage.dart';
+import 'package:house_storage/src/ui/pages/storage_page.dart';
 // Botão no qual leva para os diversos stores do app
 class BotaoParaStorage{
 
@@ -11,7 +11,7 @@ class BotaoParaStorage{
         color: Color.fromRGBO(255,99,71, 1.0),
         border: Border.all(width: 0.8, color: Colors.white)
       ),
-      child: GestureDetector(
+      child: InkWell(
         child: Icon(
           Icons.add,
           color: Colors.white,

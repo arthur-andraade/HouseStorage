@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:house_storage/src/model/help/storage_help.dart';
 
 class StoragePage extends StatefulWidget {
-  String _storageSelecionado;
+  final String _storageSelecionado;
 
-  StoragePage(String storageSelecionado) {
-    this._storageSelecionado = storageSelecionado;
-  }
+  StoragePage(this._storageSelecionado);
 
   _StorageState createState() => _StorageState(this._storageSelecionado);
 }
 
 class _StorageState extends State<StoragePage> {
   
-  String _storageSelecionado;
+  final String _storageSelecionado;
   TextEditingController addNovoItem = new TextEditingController();
 
   Storage_help controllerDB = Storage_help();
@@ -26,9 +24,7 @@ class _StorageState extends State<StoragePage> {
   Item _itemRemovido;
   int _indexItemRemovido;
 
-  _StorageState(String storageSelecionado) {
-    this._storageSelecionado = storageSelecionado;
-  }
+  _StorageState(this._storageSelecionado);
 
   @override
   void initState() {
@@ -45,45 +41,43 @@ class _StorageState extends State<StoragePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('$_storageSelecionado'),
         backgroundColor: Colors.red,
         centerTitle: true,
       ),
-
       body: Column(
-        
         children: <Widget>[
-        
           Container(
             padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
             child: Row(
               children: <Widget>[
-
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(top: 5.0),
-                    child:Container(
+                    child: Container(
                       height: 70.0,
                       padding: EdgeInsets.all(5.0),
-                      child:TextField(
+                      child: TextField(
+                        onChanged: (text){
+                          setState(() {});
+                        },
                         controller: addNovoItem,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(color: Colors.red),
                           labelText: "Adicionar novo item",
                           border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.all(5.0),
                   height: 70.0,
                   child: RaisedButton(
-                    onPressed: addItem,
+                    onPressed: addNovoItem.text.isNotEmpty ? addItem : null,
                     child: Icon(
                       Icons.add,
                       color: Colors.white,
@@ -94,7 +88,6 @@ class _StorageState extends State<StoragePage> {
               ],
             ),
           ),
-
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.only(top: 10.0, right: 12.0),
@@ -110,7 +103,6 @@ class _StorageState extends State<StoragePage> {
   Widget constroiItens(BuildContext context, int index) {
     return Dismissible(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-
       background: Container(
         color: Colors.red,
         child: Align(
@@ -121,36 +113,28 @@ class _StorageState extends State<StoragePage> {
           ),
         ),
       ),
-
       direction: DismissDirection.startToEnd,
-
       child: Row(children: <Widget>[
-        
         Expanded(
-          child: Padding(padding: EdgeInsets.only(left: 15.0, right: 5.0),
-            child: TextField(
-              controller: _controllersNome[index],
-              keyboardType: TextInputType.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.redAccent
-              ),
-              decoration: null,
-            
-              onChanged: (nomeAlterado){
-                
-                _controllersNome[index].text = nomeAlterado;
-                itemStorage[index].nome = _controllersNome[index].text;
-                
-            
-                var id = controllerDB.alterandoNomeDoItem(itemStorage[index]);
-              },
-            )
-          )
-        ),
+            child: Padding(
+                padding: EdgeInsets.only(left: 15.0, right: 5.0),
+                child: TextField(
+                  controller: _controllersNome[index],
+                  keyboardType: TextInputType.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.redAccent),
+                  decoration: null,
+                  onChanged: (nomeAlterado) {
+                    _controllersNome[index].text = nomeAlterado;
+                    itemStorage[index].nome = _controllersNome[index].text;
 
+                    var id =
+                        controllerDB.alterandoNomeDoItem(itemStorage[index]);
+                  },
+                ))),
         IconButton(
           icon: Icon(
             Icons.add_circle,
@@ -158,14 +142,14 @@ class _StorageState extends State<StoragePage> {
             size: 30.0,
           ),
           onPressed: () {
-            int valorIncrementado = int.parse(_controllersQuantidade[index].text) + 1;
+            int valorIncrementado =
+                int.parse(_controllersQuantidade[index].text) + 1;
             _controllersQuantidade[index].text = valorIncrementado.toString();
             itemStorage[index].quantidade = valorIncrementado;
 
             var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
           },
         ),
-        
         Container(
             padding: EdgeInsets.only(left: 2.5, right: 2.5),
             width: 50.0,
@@ -181,63 +165,58 @@ class _StorageState extends State<StoragePage> {
                 ),
                 controller: _controllersQuantidade[index],
                 decoration: null,
-    
                 onChanged: (quantidadeAlterada) {
-                  
                   _controllersQuantidade[index].text = quantidadeAlterada;
                   itemStorage[index].quantidade =
                       int.parse(_controllersQuantidade[index].text);
-                  
-                
-                  var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
 
+                  var id = controllerDB
+                      .alterandoQuantidadeDeItem(itemStorage[index]);
                 })),
-
         IconButton(
           icon: Icon(
             Icons.remove_circle,
             color: Colors.red,
             size: 30.0,
           ),
-          
           onPressed: () {
-            int valorIncrementado = int.parse(_controllersQuantidade[index].text) - 1;
+            int valorIncrementado =
+                int.parse(_controllersQuantidade[index].text) - 1;
             _controllersQuantidade[index].text = valorIncrementado.toString();
             itemStorage[index].quantidade = valorIncrementado;
 
             var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
           },
         )
-        
       ]),
-
-    
       onDismissed: (direction) {
-        
         _itemRemovido = itemStorage[index];
         _indexItemRemovido = index;
         itemStorage.removeAt(_indexItemRemovido);
 
         _controllersQuantidade.removeAt(_indexItemRemovido);
         _controllersNome.removeAt(_indexItemRemovido);
-  
+
         var id = controllerDB.deletandoItem(_itemRemovido);
-     
+
         final snack = SnackBar(
           content: Text(" Item \"${_itemRemovido.nome}\" removido"),
           action: SnackBarAction(
               label: "Desfazer",
               onPressed: () {
                 setState(() {
-              
                   itemStorage.insert(_indexItemRemovido, _itemRemovido);
 
-                  _controllersQuantidade.insert(_indexItemRemovido, new TextEditingController());
-                  _controllersQuantidade[_indexItemRemovido].text = itemStorage[_indexItemRemovido].quantidade.toString();
+                  _controllersQuantidade.insert(
+                      _indexItemRemovido, new TextEditingController());
+                  _controllersQuantidade[_indexItemRemovido].text =
+                      itemStorage[_indexItemRemovido].quantidade.toString();
 
-                  _controllersNome.insert(_indexItemRemovido, new TextEditingController());
-                  _controllersNome[_indexItemRemovido].text = itemStorage[_indexItemRemovido].nome;
-                  
+                  _controllersNome.insert(
+                      _indexItemRemovido, new TextEditingController());
+                  _controllersNome[_indexItemRemovido].text =
+                      itemStorage[_indexItemRemovido].nome;
+
                   id = controllerDB.salvandoNovoItem(_itemRemovido);
                 });
               }),
@@ -252,7 +231,6 @@ class _StorageState extends State<StoragePage> {
   //---------------------------------------------------------
 
   void addItem() async {
-    
     Item itemNovo = new Item();
     itemNovo.storage = _storageSelecionado;
     itemNovo.nome = addNovoItem.text;
@@ -264,16 +242,15 @@ class _StorageState extends State<StoragePage> {
       _controllersQuantidade.add(new TextEditingController());
       _controllersNome.add(new TextEditingController());
 
-      _controllersQuantidade[_controllersQuantidade.length - 1].text = itemNovo.quantidade.toString();
+      _controllersQuantidade[_controllersQuantidade.length - 1].text =
+          itemNovo.quantidade.toString();
       _controllersNome[_controllersNome.length - 1].text = itemNovo.nome;
     });
 
     itemNovo.id = await controllerDB.salvandoNovoItem(itemNovo);
-    
   }
 
   void addControllerQuantidadeENomeParaItens() {
-    
     itemStorage.forEach((item) {
       _controllersQuantidade.add(new TextEditingController());
       _controllersNome.add(new TextEditingController());

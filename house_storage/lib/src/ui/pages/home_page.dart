@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:house_storage/src/ui/build/storage.dart';
+import 'package:house_storage/src/ui/widgets/storage_widget.dart';
 
 class Home extends StatefulWidget{
   @override
