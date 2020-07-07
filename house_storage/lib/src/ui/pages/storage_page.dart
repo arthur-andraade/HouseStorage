@@ -195,25 +195,26 @@ class _StorageState extends State<StoragePage> {
         final snack = SnackBar(
           content: Text(" Item \"${_itemRemovido.nome}\" removido"),
           action: SnackBarAction(
+              textColor: Colors.white,
               label: "Desfazer",
-              onPressed: () {
-                setState(() async{
+              onPressed: () async{
+                setState((){
                   itemStorage.insert(_indexItemRemovido, _itemRemovido);
-
-                  _controllersQuantidade.insert(
-                      _indexItemRemovido, new TextEditingController());
-                  _controllersQuantidade[_indexItemRemovido].text =
-                      itemStorage[_indexItemRemovido].quantidade.toString();
-
-                  _controllersNome.insert(
-                      _indexItemRemovido, new TextEditingController());
-                  _controllersNome[_indexItemRemovido].text =
-                      itemStorage[_indexItemRemovido].nome;
-
-                  _itemRemovido.id = await controllerDB.salvandoNovoItem(_itemRemovido);
                 });
-              }),
+                _controllersQuantidade.insert(
+                    _indexItemRemovido, new TextEditingController());
+                _controllersQuantidade[_indexItemRemovido].text =
+                    itemStorage[_indexItemRemovido].quantidade.toString();
+
+                _controllersNome.insert(
+                    _indexItemRemovido, new TextEditingController());
+                _controllersNome[_indexItemRemovido].text =
+                    itemStorage[_indexItemRemovido].nome;
+                _itemRemovido.id = await controllerDB.salvandoNovoItem(_itemRemovido);
+            },
+          ),
           duration: Duration(seconds: 2),
+          backgroundColor: Colors.red[800],
         );
 
         Scaffold.of(context).removeCurrentSnackBar();
