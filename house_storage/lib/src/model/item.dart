@@ -1,10 +1,10 @@
 //Class modelo para tabala no DB do "Item"
 
-final String item_tabelaNome = "item";
-final String item_colunaId = "item_id";
-final String item_colunaNome = "item_nome";
-final String item_colunaQuantidade = "item_quantidade";
-final String item_colunaStorage = "item_storage";
+final String itemTabelaNome = "item";
+final String itemColunaId = "item_id";
+final String itemColunaNome = "item_nome";
+final String itemColunaQuantidade = "item_quantidade";
+final String itemColunaStorage = "item_storage";
 
 class Item {
   
@@ -15,21 +15,21 @@ class Item {
 
   Item();
   Item.fromMap(Map map) {
-    id = map[item_colunaId];
-    nome = map[item_colunaNome];
-    quantidade = map[item_colunaQuantidade];
-    storage = map[item_colunaStorage];
+    id = map[itemColunaId];
+    nome = map[itemColunaNome];
+    quantidade = map[itemColunaQuantidade];
+    storage = map[itemColunaStorage];
   }
 
   Map constrouiMapItem() {
     Map<String, dynamic> item = {
-      item_colunaNome: this.nome,
-      item_colunaQuantidade: this.quantidade,
-      item_colunaStorage: this.storage
+      itemColunaNome: this.nome,
+      itemColunaQuantidade: this.quantidade,
+      itemColunaStorage: this.storage
     };
 
     if (this.id != null) {
-      item[item_colunaId] = this.id;
+      item[itemColunaId] = this.id;
     }
 
     return item;

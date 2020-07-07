@@ -3,12 +3,12 @@ import 'package:house_storage/src/model/item.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class Storage_help {
-  static final Storage_help _instance = Storage_help.internal();
+class Storagehelp {
+  static final Storagehelp _instance = Storagehelp.internal();
 
-  factory Storage_help() => _instance;
+  factory Storagehelp() => _instance;
 
-  Storage_help.internal();
+  Storagehelp.internal();
 
   Database _db;
   String rotulo;
@@ -34,11 +34,11 @@ class Storage_help {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
       //Criando DB com tabela "storage"
-      await db.execute("CREATE TABLE $item_tabelaNome("
-          "   $item_colunaId INTEGER PRIMARY KEY,"
-          "   $item_colunaNome TEXT ,"
-          "   $item_colunaQuantidade INTEGER ,"
-          "   $item_colunaStorage TEXT"
+      await db.execute("CREATE TABLE $itemTabelaNome("
+          "   $itemColunaId INTEGER PRIMARY KEY,"
+          "   $itemColunaNome TEXT ,"
+          "   $itemColunaQuantidade INTEGER ,"
+          "   $itemColunaStorage TEXT"
           ")");
     });
   }
@@ -50,7 +50,7 @@ class Storage_help {
     List<Item> listaDeItem = List();
 
     list = await dbStorage.rawQuery(
-        "SELECT * FROM $item_tabelaNome WHERE $item_colunaStorage = ?",
+        "SELECT * FROM $itemTabelaNome WHERE $itemColunaStorage = ?",
         [rotulo]);
     for (Map m in list) {
       listaDeItem.add(Item.fromMap(m));
@@ -62,26 +62,26 @@ class Storage_help {
   Future<int> salvandoNovoItem(Item item) async {
     print(item.constrouiMapItem());
     Database dbStorage = await db;
-    return dbStorage.insert(item_tabelaNome, item.constrouiMapItem());
+    return dbStorage.insert(itemTabelaNome, item.constrouiMapItem());
   }
 
   Future<int> deletandoItem(Item item) async {
     Database dbStorage = await db;
-    return await dbStorage.delete(item_tabelaNome,
-        where: '$item_colunaId = ?', whereArgs: [item.id]);
+    return await dbStorage.delete(itemTabelaNome,
+        where: '$itemColunaId = ?', whereArgs: [item.id]);
   }
 
   Future<int> alterandoQuantidadeDeItem(Item item) async {
     Database dbStorage = await db;
     return dbStorage.update(
-        item_tabelaNome, {item_colunaQuantidade: item.quantidade},
-        where: '$item_colunaId = ?', whereArgs: [item.id]);
+        itemTabelaNome, {itemColunaQuantidade: item.quantidade},
+        where: '$itemColunaId = ?', whereArgs: [item.id]);
   }
 
   Future<int> alterandoNomeDoItem(Item item) async{
     Database dbStorage = await db;
     return dbStorage.update(
-        item_tabelaNome, {item_colunaNome: item.nome},
-        where: '$item_colunaId = ?', whereArgs: [item.id]);
+        itemTabelaNome, {itemColunaNome: item.nome},
+        where: '$itemColunaId = ?', whereArgs: [item.id]);
   }  
 }

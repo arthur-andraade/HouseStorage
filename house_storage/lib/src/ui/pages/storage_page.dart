@@ -15,7 +15,7 @@ class _StorageState extends State<StoragePage> {
   final String _storageSelecionado;
   TextEditingController addNovoItem = new TextEditingController();
 
-  Storage_help controllerDB = Storage_help();
+  Storagehelp controllerDB = Storagehelp();
 
   List<Item> itemStorage = List();
   List<TextEditingController> _controllersQuantidade = List();
@@ -127,12 +127,9 @@ class _StorageState extends State<StoragePage> {
                       fontWeight: FontWeight.bold,
                       color: Colors.redAccent),
                   decoration: null,
-                  onChanged: (nomeAlterado) {
-                    _controllersNome[index].text = nomeAlterado;
+                  onChanged: (nomeAlterado) async {
                     itemStorage[index].nome = _controllersNome[index].text;
-
-                    var id =
-                        controllerDB.alterandoNomeDoItem(itemStorage[index]);
+                    await controllerDB.alterandoNomeDoItem(itemStorage[index]);
                   },
                 ))),
         IconButton(
@@ -141,13 +138,13 @@ class _StorageState extends State<StoragePage> {
             color: Colors.red,
             size: 30.0,
           ),
-          onPressed: () {
+          onPressed: () async {
             int valorIncrementado =
                 int.parse(_controllersQuantidade[index].text) + 1;
             _controllersQuantidade[index].text = valorIncrementado.toString();
             itemStorage[index].quantidade = valorIncrementado;
 
-            var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
+            await controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
           },
         ),
         Container(
@@ -155,7 +152,6 @@ class _StorageState extends State<StoragePage> {
             width: 50.0,
             height: 25.0,
             child: TextField(
-                autofocus: true,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -165,13 +161,10 @@ class _StorageState extends State<StoragePage> {
                 ),
                 controller: _controllersQuantidade[index],
                 decoration: null,
-                onChanged: (quantidadeAlterada) {
-                  _controllersQuantidade[index].text = quantidadeAlterada;
+                onChanged: (quantidadeAlterada) async{
                   itemStorage[index].quantidade =
                       int.parse(_controllersQuantidade[index].text);
-
-                  var id = controllerDB
-                      .alterandoQuantidadeDeItem(itemStorage[index]);
+                  await controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
                 })),
         IconButton(
           icon: Icon(
@@ -179,17 +172,17 @@ class _StorageState extends State<StoragePage> {
             color: Colors.red,
             size: 30.0,
           ),
-          onPressed: () {
+          onPressed: () async{
             int valorIncrementado =
                 int.parse(_controllersQuantidade[index].text) - 1;
             _controllersQuantidade[index].text = valorIncrementado.toString();
             itemStorage[index].quantidade = valorIncrementado;
 
-            var id = controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
+            await controllerDB.alterandoQuantidadeDeItem(itemStorage[index]);
           },
         )
       ]),
-      onDismissed: (direction) {
+      onDismissed: (direction) async{
         _itemRemovido = itemStorage[index];
         _indexItemRemovido = index;
         itemStorage.removeAt(_indexItemRemovido);
@@ -197,14 +190,14 @@ class _StorageState extends State<StoragePage> {
         _controllersQuantidade.removeAt(_indexItemRemovido);
         _controllersNome.removeAt(_indexItemRemovido);
 
-        var id = controllerDB.deletandoItem(_itemRemovido);
+        await controllerDB.deletandoItem(_itemRemovido);
 
         final snack = SnackBar(
           content: Text(" Item \"${_itemRemovido.nome}\" removido"),
           action: SnackBarAction(
               label: "Desfazer",
               onPressed: () {
-                setState(() {
+                setState(() async{
                   itemStorage.insert(_indexItemRemovido, _itemRemovido);
 
                   _controllersQuantidade.insert(
@@ -217,7 +210,7 @@ class _StorageState extends State<StoragePage> {
                   _controllersNome[_indexItemRemovido].text =
                       itemStorage[_indexItemRemovido].nome;
 
-                  id = controllerDB.salvandoNovoItem(_itemRemovido);
+                  _itemRemovido.id = await controllerDB.salvandoNovoItem(_itemRemovido);
                 });
               }),
           duration: Duration(seconds: 2),
